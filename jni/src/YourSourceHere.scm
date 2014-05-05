@@ -4,7 +4,8 @@
 (use ports)
 
 
-;; this has saved my butt many times:
+;; this has saved my butt many times!
+;; to use, try: adb shell cat /sdcard/log
 (let ((o (let ((p (open-output-file "/sdcard/log")))
            (make-output-port (lambda (str) (display str p)
                                 (flush-output p))
