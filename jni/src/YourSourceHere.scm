@@ -1,9 +1,14 @@
 
 ;; we need this to use SDL's main macro
 (foreign-declare "#include <SDL.h>")
+(use ports)
+
 
 ;; this has saved my butt many times:
-(let ((o (open-output-file "/sdcard/log")))
+(let ((o (let ((p (open-output-file "/sdcard/log")))
+           (make-output-port (lambda (str) (display str p)
+                                (flush-output p))
+                             (lambda () (close-output-port p))))))
   (current-error-port o)
   (current-output-port o))
 
