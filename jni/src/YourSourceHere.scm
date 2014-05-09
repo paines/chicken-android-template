@@ -26,5 +26,5 @@
 ;;
 ;; using some other threads for game loop
 ;; using this thread for replloop
-(use grepl)
-(make-grepl 1234)
+(use nrepl)
+(nrepl 1234)
