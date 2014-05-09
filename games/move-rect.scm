@@ -1,14 +1,6 @@
-(use sdl2)
+(use sdl2 s48-modules)
 
-(define w (sdl-create-window "hello world" 20 30 400 300 0))
-(define r (sdl-create-renderer w -1 (+ SDL_RENDERER_ACCELERATED)))
-
-(define running? #t)
-
-(begin
-  (define v cons)
-  (define v.x car)
-  (define v.y cdr))
+(include-relative "common.scm")
 
 (define rect-pos (v 200 100))
 
@@ -20,11 +12,6 @@
                                          (v.y rect-pos)
                                          100 100)))
 
-;; vect is (v 0..1 .  0..1)
-(define (normal->screen vect window)
-  (let ((size (sdl-get-window-size window v)))
-   (v (->fixnum (* (v.x size) (v.x vect)))
-      (->fixnum (* (v.y size) (v.y vect))))))
 
 (define game-iteration
   ;; private holder for event
@@ -32,29 +19,26 @@
     
     (lambda ()
       ;; inner event-loop
-      (let loop ()
-        (if (sdl-poll-event! e)
-            (let ((et (sdl-event-type e)))
-              ;; (print "incoming event " e)
-              (cond ((= et SDL_QUIT) (set! running? #f))
-                    ((= et SDL_FINGERMOTION)
-                     (set! rect-pos (normal->screen (v (sdl-event-x e)
-                                                       (sdl-event-y e))
-                                                    w))))
-              (loop))))
+      (handle-input)
       
       (sdl-set-render-draw-color r 0 40 0 0)
       (sdl-render-clear r)
 
+      ;; draw "web"
+      (sdl-set-render-draw-color r 0 200 0 0)
+      (define (l p1 p2)
+        (sdl-render-draw-line r    (v.x p1) (v.y p1)    (v.x p2) (v.y p2)))
+
+      (let* ((br (sdl-get-window-size w v))
+             (tl (v* br (v 0 0)))
+             (tr (v* br (v 0 1)))
+             (bl (v* br (v 1 0))))
+        (l tl (v+ rect-pos (v 0 0)))
+        (l tr (v+ rect-pos (v 0 100)))
+        (l bl (v+ rect-pos (v 100 0)))
+        (l br (v+ rect-pos (v 100 100))))
+      
       (draw-rect)
       (sdl-render-present r))))
 
-(define thread
-  (thread-start! (lambda ()
-                   (let loop ()
-                     (game-iteration)
-                     (thread-yield!) ;; <-- let grepl thread run
-                     (if running? (loop))))))
 
-;; (thread-state thread)
-;; (thread-terminate! thread)
