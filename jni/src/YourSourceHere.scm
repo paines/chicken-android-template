@@ -20,7 +20,9 @@
 ;;
 ;; you should be able to run these on your PC too, with csi -s
 ;; sdl2-main.scm for example.
-(include "./games/move-rect.scm")
+
+;; (include "./games/move-rect.scm")
+(include "./games/interstar-galactica.scm")
 
 ;; add a network REPL and loop forever
 ;;
