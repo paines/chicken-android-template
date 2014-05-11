@@ -1,2 +1,5 @@
 /local.properties
 /jni/src/YourSourceHere.c
+/obj/
+/libs/
+/bin/
