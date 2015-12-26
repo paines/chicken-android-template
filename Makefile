@@ -1,6 +1,7 @@
 
 PROJECT_ROOT = ${PWD}
-CHICKEN_INSTALL = ${PROJECT_ROOT}/jni/chicken/host/org.libsdl.app/bin/android-chicken-install
+PACKAGE_NAME     := $(shell csi -s ./jni/chicken/find-package.scm AndroidManifest.xml)
+CHICKEN_INSTALL = ${PROJECT_ROOT}/jni/chicken/host/${PACKAGE_NAME}/bin/android-chicken-install
 
 main:
 	csc -t jni/src/YourSourceHere.scm # generates YourSourceHere.c as requested by ndk-build
