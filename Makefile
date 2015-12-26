@@ -10,15 +10,25 @@ main:
 	ant clean debug
 	adb install -r bin/SDLActivity-debug.apk 
 
-eggs: s48-modules sdl2-egg nrepl
+# ==================== useful eggs ====================
 
-sdl2-egg:
-	cd ../chicken-sdl2 ; \
-	 CSC_OPTIONS="-I${PROJECT_ROOT}/jni/SDL/include/ -lSDL2 -L${PROJECT_ROOT}/obj/local/armeabi/" \
-	${CHICKEN_INSTALL}
+# Here's how you can explicitly install an egg. It should all end up
+# under both jni/chicken/target and /jni/chicken/host. Note that `make
+# jni/chicken libs` above copies these into ./libs/${TARGET} with a
+# touch of magic (to get the Android build.xml to pick them up).
 
-s48-modules:
-	 ${CHICKEN_INSTALL} s48-modules
+# you should be able to do `make sdl2` from the project root. however,
+# `-keep-installed` is very very tricky because:
+# - it installs for host, then target
+# - `-keep-installed` only checks if egg already exists for host
+# - thus, if target installation fails, it won't retry
+sdl2:
+	SDL2_FLAGS="\
+		-I${PROJECT_ROOT}/jni/SDL \
+		-I${PROJECT_ROOT}/jni/SDL/include \
+		-L${PROJECT_ROOT}/libs/armeabi/ \
+		-lSDL2" \
+	${CHICKEN_INSTALL} -keep-installed sdl2
 
 nrepl:
-	cd ../nrepl ; ${CHICKEN_INSTALL}
+	${CHICKEN_INSTALL} -keep-installed nrepl
