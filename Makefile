@@ -1,14 +1,18 @@
 
 PROJECT_ROOT = ${PWD}
 PACKAGE_NAME     := $(shell csi -s ./jni/chicken/find-package.scm AndroidManifest.xml)
-CHICKEN_INSTALL = ${PROJECT_ROOT}/jni/chicken/host/${PACKAGE_NAME}/bin/android-chicken-install
+CHICKEN_BIN = ${PROJECT_ROOT}/jni/chicken/host/${PACKAGE_NAME}/bin/
+CHICKEN_INSTALL = ${CHICKEN_BIN}/android-chicken-install
 
-main:
-	csc -t jni/src/YourSourceHere.scm # generates YourSourceHere.c as requested by ndk-build
+main: ${CHICKEN_BIN}/android-csc
+	${CHICKEN_BIN}/android-csc -t jni/src/YourSourceHere.scm
 	ndk-build
 	make -C jni/chicken libs # copies eggs/units with lib prefix (sigh ...)
 	ant clean debug
-	adb install -r bin/SDLActivity-debug.apk 
+	adb install -r bin/SDLActivity-debug.apk
+
+${CHICKEN_BIN}/android-csc:
+	ndk-build # <-- this should trigger building chicken-core
 
 # ==================== useful eggs ====================
 
