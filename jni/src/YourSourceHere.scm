@@ -13,8 +13,8 @@
 
 ;; replace with your favorite program here
 
-;; (include "./games/move-rect.scm")
-(include "./games/interstar-galactica.scm")
+(use s48-modules)
+(include-relative "../../games/example.scm")
 
 ;; it may be good practice to have your game start a srfi-18 thread,
 ;; do it's game loop there, and then return. this way, you can just do
