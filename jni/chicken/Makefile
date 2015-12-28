@@ -48,7 +48,8 @@ $(ANDROID_TOOLCHAIN)/:
 	mkdir -p $(ANDROID_TOOLCHAIN) && \
 	$(ANDROID_NDK)/build/tools/make-standalone-toolchain.sh \
 	  --platform=$(ANDROID_PLATFORM) \
-	  --system=linux-x86 \
+	  --toolchain=arm-linux-androideabi-4.8 \
+	  --system=linux-x86_64 \
 	  --install-dir=$(ANDROID_TOOLCHAIN)
 
 chicken-sources: $(CHICKEN_CORE)/
