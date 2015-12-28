@@ -1,17 +1,12 @@
 
 ;; we need this to use SDL's main macro
 (foreign-declare "#include <SDL.h>")
-(use ports)
+(foreign-declare "#include \"stdio2log.c\"")
 
-
-;; this has saved my butt many times!
-;; to use, try: adb shell cat /sdcard/log
-(let ((o (let ((p (open-output-file "/sdcard/log")))
-           (make-output-port (lambda (str) (display str p)
-                                (flush-output p))
-                             (lambda () (close-output-port p))))))
-  (current-error-port o)
-  (current-output-port o))
+;; start a thread which will read our stdout/stderr and forward to
+;; logcat. this is pretty much a must-have since GLSL compile errors
+;; etc end up on stderr usually.
+((foreign-lambda void start_logger))
 
 ;; make (use sdl2) work properly (.so lib prefix path hack)
 (include "./jni/chicken/find-extension.scm")
