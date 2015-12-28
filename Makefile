@@ -5,7 +5,7 @@ CHICKEN_BIN = ${PROJECT_ROOT}/jni/chicken/host/${PACKAGE_NAME}/bin/
 CHICKEN_INSTALL = ${CHICKEN_BIN}/android-chicken-install
 
 main: ${CHICKEN_BIN}/android-csc
-	${CHICKEN_BIN}/android-csc -t jni/src/YourSourceHere.scm
+	${CHICKEN_BIN}/android-csc -t jni/entry/entry.scm
 	ndk-build
 	make -C jni/chicken libs # copies eggs/units with lib prefix (sigh ...)
 	ant clean debug

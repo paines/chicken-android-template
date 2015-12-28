@@ -1,4 +1,3 @@
-
 ;; we need this to use SDL's main macro
 (foreign-declare "#include <SDL.h>")
 (foreign-declare "#include \"stdio2log.c\"")
