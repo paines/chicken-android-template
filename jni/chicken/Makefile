@@ -55,8 +55,8 @@ $(ANDROID_TOOLCHAIN)/:
 chicken-sources: $(CHICKEN_CORE)/
 
 $(CHICKEN_CORE)/:
-	git clone https://github.com/chicken-mobile/chicken-core.git \
-		-b android-soname-fix-maybe \
+	git clone --depth 1 git://code.call-cc.org/chicken-core \
+		-b 4.9.0.1 \
 		$(CHICKEN_CORE)
 
 # build chicken-boot unless binary already present
