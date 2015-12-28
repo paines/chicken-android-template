@@ -1,3 +1,8 @@
+;;; This file is the native entrypoint for the app. We first set up
+;;; our environment for Android and then dispatch (or include) a main
+;;; program. The main program should not need modifications from
+;;; running on your desktop.
+
 ;; we need this to use SDL's main macro
 (foreign-declare "#include <SDL.h>")
 (foreign-declare "#include \"stdio2log.c\"")
