@@ -23,5 +23,6 @@
 ;;
 ;; using some other threads for game loop
 ;; using this thread for replloop
+(use ports) ;; <-- workaround for nrepl bug
 (use nrepl)
 (nrepl 1234)
