@@ -8,21 +8,27 @@
 ;; etc end up on stderr usually.
 ((foreign-lambda void start_logger))
 
-;; make (use sdl2) work properly (.so lib prefix path hack)
+;; must come before any (use ...) declarations!
 (include "./jni/chicken/find-extension.scm")
 
-;; include your favorite program here
-;;
-;; you should be able to run these on your PC too, with csi -s
-;; sdl2-main.scm for example.
+;; replace with your favorite program here
 
 ;; (include "./games/move-rect.scm")
 (include "./games/interstar-galactica.scm")
 
-;; add a network REPL and loop forever
+;; it may be good practice to have your game start a srfi-18 thread,
+;; do it's game loop there, and then return. this way, you can just do
 ;;
-;; using some other threads for game loop
-;; using this thread for replloop
+;; csi example.scm
+;;
+;; and the same file should run on your desktop too, and you get the
+;; repl in the background. can be handy! let's follow the same
+;; convention here, but using nrepl instead:
+
 (use ports) ;; <-- workaround for nrepl bug
 (use nrepl)
+;; add a network REPL and loop forever
 (nrepl 1234)
+
+
+;; if we reach here, the app will exit
