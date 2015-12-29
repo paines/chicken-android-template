@@ -4,7 +4,10 @@ PACKAGE_NAME     := $(shell csi -s ./jni/chicken/find-package.scm AndroidManifes
 CHICKEN_BIN = ${PROJECT_ROOT}/jni/chicken/host/${PACKAGE_NAME}/bin/
 CHICKEN_INSTALL = ${CHICKEN_BIN}/android-chicken-install
 
-main: ${CHICKEN_BIN}/android-chicken-install libs/armeabi/libSDL2.so
+all: compile
+	adb install -r bin/SDLActivity-debug.apk
+
+compile: ${CHICKEN_BIN}/android-chicken-install libs/armeabi/libSDL2.so
         # build dependencies
         #
         # some gles feature is important for gl eggs, SDL2_FLAGS must
@@ -22,7 +25,6 @@ main: ${CHICKEN_BIN}/android-chicken-install libs/armeabi/libSDL2.so
 	ndk-build
 	make -C jni/chicken libs # copies eggs/units with lib prefix (sigh ...)
 	ant clean debug
-	adb install -r bin/SDLActivity-debug.apk
 
 ${CHICKEN_BIN}/android-chicken-install:
 	${MAKE} -C jni/chicken # should build the cross-chicken
