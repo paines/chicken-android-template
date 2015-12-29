@@ -1,0 +1,5 @@
+;; -*- scheme -*-
+
+(compile -t entry.scm)
+
+

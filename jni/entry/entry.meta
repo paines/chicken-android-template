@@ -1,0 +1,12 @@
+;; -*- scheme -*-
+
+;; if you want more eggs into your app, you should add them here!
+
+((depends nrepl
+          sdl2
+          miscmacros
+          ;; opengl-glew
+          ;; gl-utils
+          ;; gl-math
+          ;; glls
+          ))

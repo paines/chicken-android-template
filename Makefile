@@ -4,15 +4,28 @@ PACKAGE_NAME     := $(shell csi -s ./jni/chicken/find-package.scm AndroidManifes
 CHICKEN_BIN = ${PROJECT_ROOT}/jni/chicken/host/${PACKAGE_NAME}/bin/
 CHICKEN_INSTALL = ${CHICKEN_BIN}/android-chicken-install
 
-main: ${CHICKEN_BIN}/android-csc
-	${CHICKEN_BIN}/android-csc -t jni/entry/entry.scm
+main: ${CHICKEN_BIN}/android-chicken-install
+        # build dependencies
+        #
+        # some gles feature is important for gl eggs, SDL2_FLAGS must
+        # be set for the sdl2 egg.
+	cd jni/entry && \
+		SDL2_FLAGS="\
+			-I${PROJECT_ROOT}/jni/SDL \
+			-I${PROJECT_ROOT}/jni/SDL/include \
+			-L${PROJECT_ROOT}/libs/armeabi/ \
+			-lSDL2" \
+		${CHICKEN_BIN}/android-chicken-install \
+			-D gles\
+			-D android\
+			-D arm
 	ndk-build
 	make -C jni/chicken libs # copies eggs/units with lib prefix (sigh ...)
 	ant clean debug
 	adb install -r bin/SDLActivity-debug.apk
 
-${CHICKEN_BIN}/android-csc:
-	ndk-build # <-- this should trigger building chicken-core
+${CHICKEN_BIN}/android-chicken-install:
+	${MAKE} -C jni/chicken # should build the cross-chicken
 
 # ==================== useful eggs ====================
 
