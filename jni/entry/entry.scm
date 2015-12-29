@@ -41,9 +41,7 @@
 ;; ==================== your environment sould be ready here  ====================
 
 ;; replace with your favorite program here
-
-(use s48-modules)
-(include-relative "../../games/example.scm")
+(include "example.scm")
 
 ;; it may be good practice to have your game start a srfi-18 thread,
 ;; do it's game loop there, and then return. this way, you can just do

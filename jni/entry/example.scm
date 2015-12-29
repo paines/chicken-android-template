@@ -1,3 +1,6 @@
+;;; This should display a green square on red backgound.
+;;; try it with:
+;;; csi example.scm # <-- note no -s!
 (use sdl2 miscmacros)
 
 (define window (create-window! "sdl test" 0 0 640 640 '(opengl resizable)))
