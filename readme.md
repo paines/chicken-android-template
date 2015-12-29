@@ -12,6 +12,7 @@ to bootstrap your CHICKEN Android projects quickly.
 ## Getting started
 
 ```
+$ # download SDL2 into ~/opt. See https://libsdl.org/download-2.0.php
 $ git clone https://github.com/Adellica/chicken-sdl2-android-template.git
 $ cd chicken-sdl2-android-template
 $ ln -s ~/opt/SDL2-2.0.0 jni/SDL # <-- standard SDL2 instructions
