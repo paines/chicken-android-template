@@ -22,15 +22,23 @@ $ make
 The make command should build cross-CHICKEN, SDL2, the sdl2 egg and
 some egg dependencies and launch `ant debug` to produce an apk.
 
+You can add egg dependencies for your app under `jni/entry/entry.meta`.
+
+## Prerequisites
+
+* Android [SDK](http://developer.android.com/sdk/) and
+  [NDK](http://developer.android.com/tools/sdk/ndk/) r10.
+* A [Chicken](http://code.call-cc.org) installation. Version 4.8.0 or
+  higher is recommended.
+* The `ssax`, `sxpath` and `sxml` eggs
+* `ndk-build` on your path
+
 ## android-chicken-install
 
 The Makefiles compile its own cross-CHICKEN (tag 4.9.0.1). This
-CHICKEN provies `android-csc` and `android-chicken-install` and all
-the other CHICKEN tools that should work mostly like normal CHICKEN
-tools. The CHICKEN tools are not built for the target (your app won't
-have csc), only `libchicken.so`.
-
-You can add egg dependencies under `jni/entry/entry.meta`.
+CHICKEN provies `android-chicken-install` and friends, which work like
+you're used to on your desktop. The CHICKEN tools are not built for
+the target however, your app won't have csc, only `libchicken.so`.
 
 ## Notes
 
