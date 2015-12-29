@@ -16,7 +16,7 @@ compile: ${CHICKEN_BIN}/android-chicken-install libs/armeabi/libSDL2.so
 		SDL2_FLAGS="\
 			-I${PROJECT_ROOT}/jni/SDL \
 			-I${PROJECT_ROOT}/jni/SDL/include \
-			-L${PROJECT_ROOT}/libs/armeabi/ \
+			-L${PROJECT_ROOT}/obj/local/armeabi/ \
 			-lSDL2" \
 		${CHICKEN_BIN}/android-chicken-install \
 			-D gles\
