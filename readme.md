@@ -23,7 +23,7 @@ to bootstrap your CHICKEN Android projects quickly.
 ```
 $ # download SDL2 into ~/opt. See https://libsdl.org/download-2.0.php
 $ git clone https://github.com/chicken-mobile/chicken-android-template.git
-$ cd chicken-sdl2-android-template
+$ cd chicken-android-template
 $ android update project -p .
 $ ln -s ~/opt/SDL2-2.0.0 jni/SDL # <-- standard SDL2 instructions
 $ make #<-- this takes very long
