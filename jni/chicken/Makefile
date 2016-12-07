@@ -46,17 +46,16 @@ android-toolchain: $(ANDROID_TOOLCHAIN)/
 
 $(ANDROID_TOOLCHAIN)/:
 	mkdir -p $(ANDROID_TOOLCHAIN) && \
-	$(ANDROID_NDK)/build/tools/make-standalone-toolchain.sh \
+	$(ANDROID_NDK)/build/tools/make-standalone-toolchain.sh --force \
 	  --platform=$(ANDROID_PLATFORM) \
 	  --toolchain=arm-linux-androideabi-4.8 \
-	  --system=linux-x86_64 \
 	  --install-dir=$(ANDROID_TOOLCHAIN)
 
 chicken-sources: $(CHICKEN_CORE)/
 
 $(CHICKEN_CORE)/:
 	git clone --depth 1 git://code.call-cc.org/chicken-core \
-		-b 4.9.0.1 \
+		-b 4.11.0 \
 		$(CHICKEN_CORE)
 
 # build chicken-boot unless binary already present
